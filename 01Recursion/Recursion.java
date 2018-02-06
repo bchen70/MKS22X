@@ -63,7 +63,7 @@ public class Recursion{
 
   }
   public double sqrthelp(double n, double g){
-    if (n - (g*g) < 0.0000001){
+    if (Math.abs (g*g - n) / n < 0.0000001){
       return g;
     }
     return sqrthelp(n ,(n/ g + g)/2);
@@ -85,6 +85,8 @@ public class Recursion{
     //sqrt
     //System.out.println(x.sqrt(-1));error
     // System.out.println(x.sqrt(0)); 0.0
-    System.out.println(x.sqrt(1));
+    // System.out.println(x.sqrt(1)); 1.0
+    //System.out.println(x.sqrt(50));  7.071067928984419
+    // System.out.println(x.sqrt(100)); 50.0
   }
 }
