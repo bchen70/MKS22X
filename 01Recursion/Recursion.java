@@ -49,11 +49,14 @@ public class Recursion{
   //1.1c Square Root
 
   public double sqrt(double n){
-    if (n <= 0){
+    if (n < 0){
       throw new IllegalArgumentException();
     }
     if (n == 0){
       return 0;
+    }
+    if (n == 1){
+      return 1;
     }
     return sqrthelp(n,n/2);
 
@@ -81,6 +84,7 @@ public class Recursion{
 
     //sqrt
     //System.out.println(x.sqrt(-1));error
-    System.out.println(x.sqrt(0));
+    // System.out.println(x.sqrt(0)); 0.0
+    System.out.println(x.sqrt(1));
   }
 }
