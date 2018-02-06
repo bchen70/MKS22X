@@ -45,6 +45,27 @@ public class Recursion{
     return fib2(n-1) + fib(n-2);
   }
 
+
+  //1.1c Square Root
+
+  public double sqrt(double n){
+    if (n <= 0){
+      throw new IllegalArgumentException();
+    }
+    if (n == 0){
+      return 0;
+    }
+    return sqrthelp(n,n/2);
+
+
+  }
+  public double sqrthelp(double n, double g){
+    if (n - (g*g) < 0.0000001){
+      return g;
+    }
+    return sqrthelp(n ,(n/ g + g)/2);
+  }
+
   public static void main(String[] args){
     Recursion x = new Recursion();
     //fact
@@ -57,5 +78,9 @@ public class Recursion{
     // System.out.println(x.fib(-1));error
     // System.out.println(x.fib(0)); 0
     //System.out.println(x.fib(1)); 1
+
+    //sqrt
+    //System.out.println(x.sqrt(-1));error
+    System.out.println(x.sqrt(0));
   }
 }
