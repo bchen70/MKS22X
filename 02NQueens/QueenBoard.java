@@ -1,34 +1,35 @@
 public class QueenBoard{
     private int [][]board;
+    private int size;
     public QueenBoard(int size){
-	if 
+	if (size <= 0){
+	    throw new IllegalArgumentException("Size cannot be less than 0");
+	}
+	this.size = size;
+	board = new int [size][size];
     }
-    private boolean addQueen(int r, int c){
+    public String toString(){
+	String str = "";
+	for (int r = 0; r < size; r ++){
+	    for (int c = 0; c < size; c++){
+		if (board[r][c] == 1){
+		    str += "Q ";
+		}
+		else{
+		    str += "_ ";
+		}
+	    }
+	    str += "\n";
+	}
+	return str;
     }
+    // private boolean addQueen(int r, int c){
+    // }
     //  private boolean removeQueen(int r, int c){
-    //    }
-    //   public String toString(){
-    //   /**
-    //   *@return The output string formatted as follows:
-    //   *All numbers that represent queens are replaced with 'Q' 
-    //  *all others are displayed as underscores '_'
-    //   *There are spaces between each symbol:  
-    //   *Q _ _ _
-    //   *_ _ Q _
-    //   * etc.
-    //    */
-    //   }
-    //   public boolean solve(){
-    //   /**
-    //  *@return false when the board is not solveable and leaves the board filled with zeros; 
-    //  *        true when the board is solveable, and leaves the board in a solved state
-    // *@throws IllegalStateException when the board starts with any non-zero value
-    // */
-    //   }
-    //   public int countSolutions(){
-    // /**
-    // *@return the number of solutions found, and leaves the board filled with only 0's
-    //  *@throws IllegalStateException when the board starts with any non-zero value
-    //  */
-    //   }
+    // }
+
+    public static void main(String[] args){
+	QueenBoard x = new QueenBoard(3);
+	System.out.println(x);
+    }
 }
