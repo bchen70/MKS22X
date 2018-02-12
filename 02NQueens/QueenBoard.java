@@ -46,11 +46,30 @@ public class QueenBoard{
     }
 
 
-    //  private boolean removeQueen(int r, int c){
-    // }
+    private boolean removeQueen(int r, int c){
+	return true;
+     }
+
+    public boolean solve(){
+	return solveR(0);
+    }
+    public boolean solveR(int col){
+	if (col > size){
+	    return true;
+	}
+	for (int row = 0; row < size; row ++){
+	    if(addQueen(row, col)){
+		if(solveR(col + 1)){
+		    return true;
+		}
+		removeQueen(row,col);
+	    }
+	}
+	return false;
+    }
 
     public static void main(String[] args){
-	QueenBoard x = new QueenBoard(3);
+	QueenBoard x = new QueenBoard(4);
 	System.out.println(x);
     }
 }
