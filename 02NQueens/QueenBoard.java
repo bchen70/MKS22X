@@ -23,8 +23,29 @@ public class QueenBoard{
 	}
 	return str;
     }
-    // private boolean addQueen(int r, int c){
-    // }
+    private boolean addQueen(int r, int c){
+	if (board [r][c] == 0){
+	    board[r][c] = -1;
+
+	    for(int i = c + 1;i < size; i ++){
+		board[r][i] += 1;
+	    }
+	    
+	for (int i = r+1, x = c+1; i < size && x < size; i++, x++){
+	    board[i][x] += 1;
+	    System.out.println(toString());
+	}
+
+	for (int i = r-1, x = c+1; i >= 0 && x < board.length; i--, x++){
+	    board[i][x] += 1;
+	    System.out.println(toString());
+	}	    
+	return true;
+	}
+    return false;	
+    }
+
+
     //  private boolean removeQueen(int r, int c){
     // }
 
