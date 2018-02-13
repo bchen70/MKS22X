@@ -12,7 +12,7 @@ public class QueenBoard{
     String str = "";
     for (int r = 0; r < size; r ++){
       for (int c = 0; c < size; c++){
-        if (board[r][c] == 1){
+        if (board[r][c] == -1){
           str += "Q ";
         }
         else{
@@ -46,29 +46,33 @@ public class QueenBoard{
 
   private boolean removeQueen(int r, int c) {
     if (board[r][c] != -1) {
-	    return false;
+      return false;
     }
-	
-    for(int x = r; x < board.length; x++) {
-	    board[x][c] -= 1;
+    board[r][c]++;
+    for (int i=1; c+i<size; i++){
+      board[r][c+i]--;
+      if (r+i<size){
+        board[r+i][c+i]--;
+      }
+      if (r-i>=0){
+        board[r-i][c+i]--;
+      }
     }
-    for(int y = c; y < board[r].length; y++) {
-	    board[r][y] -= 1;
-    }
-    int inc = 0;
-    for(int z = r; z < board.length; z++) {
-	    board[z][c + inc] -= 1;
-	    inc += 1;
-    }
-    board[r][c] = 0;
     return true;
-}
-
-  public boolean solve(){
-    return solveR(0);
   }
+  public boolean solve(){
+     for (int r=0; r<size; r++){
+	    for (int c=0; c<size; c++) {
+        if (board[r][c] != 0){
+          throw new IllegalStateException();
+        }
+	    }
+     }
+     return solveR(0);
+  }
+
   public boolean solveR(int col){
-    if (col > size){
+    if (col ==  size){
 	    return true;
     }
     for (int row = 0; row < size; row ++){
