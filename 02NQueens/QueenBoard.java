@@ -2,7 +2,7 @@ public class QueenBoard{
   private int [][]board;
   private int size;
   public QueenBoard(int size){
-    if (size <= 0){
+    if (size < 0){
       throw new IllegalArgumentException("Size cannot be less than 0");
     }
     this.size = size;
@@ -86,6 +86,13 @@ public class QueenBoard{
     return false;
   }
   public int countSolutions(){
+    for (int r=0; r<size; r++){
+      for (int c=0; c<size; c++) {
+        if (board[r][c] != 0){
+          throw new IllegalStateException();
+        }
+      }
+    }
     return countSolutionsH(0);
   }
 
@@ -116,5 +123,25 @@ public class QueenBoard{
     }catch(IllegalStateException e){
 	    System.out.println("Error: The board contains non-zero values");
     } //prints "Error: The board contains non-zero values"
+    try{
+	    b.countSolutions();
+    }catch(IllegalStateException e){
+	    System.out.println("Error: The board contains non-zero values");
+    } //prints "Error: The board contains non-zero values"
+    
+    for (int i = 0; i < 12; i++){
+      QueenBoard a = new QueenBoard(i);
+    System.out.println("# of Solutions for " + i + ": " + a.countSolutions());
+	    /*          Expected Values
+			i --> # of Solutions   i --> # of Solutions
+			0 --> 1                      6 --> 4
+			1 --> 1                      7 --> 40
+			2 --> 0                      8 --> 92
+			3 --> 0                      9 --> 352
+			4 --> 2                    10 --> 724
+			5 --> 10                  11 --> 2680
+	    */
+	    System.out.println(a); //prints out an empty i by i grid of underscores
+    }
   }
 }
