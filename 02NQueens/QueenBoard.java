@@ -85,8 +85,26 @@ public class QueenBoard{
     }
     return false;
   }
+  public int countSolutions(){
+    return countSolutionsH(0);
+  }
+
+  private int countSolutionsH(int col){
+    int numSolutions = 0;
+    if (col == size){
+      return 1;
+    }
+    for (int row = 0; row<size; row++){
+      if (addQueen(row,col)){
+        numSolutions += countSolutionsH(col+1);
+        removeQueen(row,col);
+      }
+    }
+    return numSolutions;
+}
 
   public static void main(String[]args){
+    //using Crystal's driver
     QueenBoard b = new QueenBoard(4);
 
     System.out.println(b.solve()); //prints true
