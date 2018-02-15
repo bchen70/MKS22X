@@ -52,4 +52,6 @@ public class KnightBoard{
 	KnightBoard b = new KnightBoard(4,3);
 	System.out.println(b);
     }
+    //5x5 = 304
+    //add all count soltuions 1728
 }
