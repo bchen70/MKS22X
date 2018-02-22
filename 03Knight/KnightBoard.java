@@ -1,29 +1,29 @@
 public class KnightBoard{
     private int board[][];
-    private int startingRows;
-    private int startingCols;
+    private int rows;
+    private int cols;
     public KnightBoard(int startingRows,int startingCols){
 	if (startingRows < 0 && startingCols < 0){
 	    throw new IllegalArgumentException("Size cannot be less than 0");
 	}
-	this.startingRows = startingRows;
-	this.startingCols = startingCols;
+	rows = startingRows;
+	cols = startingCols;
 	board = new int [startingRows][startingCols];
     }
     
     public String toString(){
 	String str = "";
-	for (int r = 0; r < startingRows; r ++){
-	    for (int c = 0; c < startingCols; c++){
-		if (board[r][c] == -1){
-		    str += "0";
+	for (int r = 0; r < rows; r ++){
+	    for (int c = 0; c < cols; c++){
+		if (board[r][c] == 0){
+		    str += "_";
 		    //need to fix this part?? or idk??
 		    // blank boards display 0's as underscores 
 		    // you get a blank board if you never called solve or 
 		    // when there is no solution  			 
 		}
 		else{
-		    str += "_";
+		    str += board[r][c]+ " ";
 		}
 	    }
 	    str += "\n";
@@ -31,19 +31,25 @@ public class KnightBoard{
 	return str;
     }
     public boolean solve(int startingRow, int startingCol){
-	for (int r=0; r < startingRows ; r++){
-	    for (int c=0; c< startingCols; c++) {
+	if (startingRow >= rows || startingRow < 0){
+	    throw new IllegalArgumentException();
+	}
+	if (startingCol >= cols || startingCol < 0){
+	    throw new IllegalArgumentException();
+	}
+	for (int r=0; r < rows ; r++){
+	    for (int c=0; c< cols; c++) {
 		if (board[r][c] != 0){
 		    throw new IllegalStateException();
 		}
 	    }
 	}
-	return solveH(0,0,0);
+	return solveH(startingRow,startingCol,1);
     }
     // public int countSolutions(int startingRow, int startingCol){
     // }
     private boolean solveH(int row ,int col, int level){
-	if (col == startingCols){
+	if (col == cols){
 	    return true;
 	}
 	return false;
