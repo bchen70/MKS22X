@@ -68,12 +68,42 @@ public class KnightBoard{
     return false;
   }
   
- public static void main(String[] args){
- 
+  public int countSolutions(int startingRow, int startingCol) {
+    if (startingRow < 0 || startingCol < 0) {
+ 	    throw new IllegalArgumentException();
     }
+    
+    for(int x = 0; x < board.length; x++) {
+	    for(int y = 0; y < board[x].length; y++){
+        if(board[x][y] != 0){
+          throw new IllegalStateException();
+        }
+	    }
+    }
+	
+    return countSolutionsH(startingRow, startingCol, 1);
+  }
+
+  public int countSolutionsH(int row, int col, int level){
+    int total = 0;
+    if (rows * cols == level){
+      return 1;
+    }
+    for (int i[]: move){
+      if (board[row+i[0]][col+i[1]] == 0){
+		    board[row][col] = level;
+		    total += countSolutionsH(row+i[0],col+i[1], level + 1);
+        board[row][col] = 0; 
+      }
+    }
+    return total;
+  }
+  
+  public static void main(String[] args){
+  }
  
 
-  }
+  
   //5x5 = 304
   //add all count soltuions 1728
 }
