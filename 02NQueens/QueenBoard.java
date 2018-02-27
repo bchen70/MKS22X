@@ -112,7 +112,7 @@ public class QueenBoard{
 
   public static void main(String[]args){
     //using Crystal's driver
-    QueenBoard b = new QueenBoard(4);
+    QueenBoard b = new QueenBoard(27);
 
     System.out.println(b.solve()); //prints true
     System.out.println(b); //prints a valid solution
