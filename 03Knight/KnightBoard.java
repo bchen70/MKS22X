@@ -1,8 +1,10 @@
 public class KnightBoard{
+
   private int board[][];
   private int rows;
   private int cols;
   private final int[][] move = {{-1,-2}, {-1,2}, {1,-2}, {1,2}, {-2,-1}, {-2,1}, {2,-1}, {2,1}};
+
   public KnightBoard(int startingRows,int startingCols){
     if (startingRows < 0 && startingCols < 0){
 	    throw new IllegalArgumentException("Size cannot be less than 0");
@@ -30,6 +32,7 @@ public class KnightBoard{
     }
     return str;
   }
+
   public boolean solve(int startingRow, int startingCol){
     if (startingRow >= rows || startingRow < 0){
 	    throw new IllegalArgumentException();
@@ -80,7 +83,6 @@ public class KnightBoard{
         }
 	    }
     }
-	
     return countSolutionsH(startingRow, startingCol, 1);
   }
 
@@ -90,7 +92,7 @@ public class KnightBoard{
       return 1;
     }
     for (int i[]: move){
-      if (board[row+i[0]][col+i[1]] == 0){
+      if (board[row+i[0]][col+ i[1]] == 0){
 		    board[row][col] = level;
 		    total += countSolutionsH(row+i[0],col+i[1], level + 1);
         board[row][col] = 0; 
@@ -100,10 +102,19 @@ public class KnightBoard{
   }
   
   public static void main(String[] args){
-  }
- 
+    KnightBoard c = new KnightBoard(5,5);
 
-  
-  //5x5 = 304
-  //add all count soltuions 1728
-}
+    int totalSol = 0;
+    for (int i = 0; i < 5; i++){
+      for (int j = 0; j < 5; j++){
+        totalSol += c.countSolutions(i,j);
+      }
+    }
+
+    System.out.println(totalSol); //prints 1728
+
+    KnightBoard d = new KnightBoard(5,5);
+    System.out.println(d.countSolutions(0,0)); //prints 304
+
+    }
+  }
