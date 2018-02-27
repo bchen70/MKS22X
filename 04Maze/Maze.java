@@ -18,8 +18,14 @@ public class Maze{
       3. When the file is not found OR the file is invalid (not exactly 1 E and 1 S) then: 
          throw a FileNotFoundException or IllegalStateException
     */
-    public Maze(String filename){
-        //COMPLETE CONSTRUCTOR
+    public Maze(String filename) throws FileNotFoundException{
+	File text = new File(filename);
+	Scanner inf = new Scanner(text);
+	while (inf.hasNextLine()){
+	    String line = inf.nextLine();
+	    System.out.println(line);
+	}
+	animate = false;
     }
     
     private void wait(int millis){
@@ -28,7 +34,7 @@ public class Maze{
          }
          catch (InterruptedException e) {
          }
-     }
+    }
 
     public void setAnimate(boolean b){
         animate = b;
@@ -51,6 +57,7 @@ public class Maze{
 
             //and start solving at the location of the s.
             //return solve(???,???);
+	return 0;
     }
 
     /*
@@ -79,5 +86,8 @@ public class Maze{
         //COMPLETE SOLVE
         return -1; //so it compiles
     }
-
+    public static void main(String[] args) throws FileNotFoundException{
+        Maze f;
+        f = new Maze("data1.dat");
+    }
 }
