@@ -92,12 +92,16 @@ public class KnightBoard{
       return 1;
     }
     for (int i[]: move){
-      if (board[row+i[0]][col+ i[1]] == 0){
-		    board[row][col] = level;
-		    total += countSolutionsH(row+i[0],col+i[1], level + 1);
-        board[row][col] = 0; 
+      try{
+        if (board[row+i[0]][col+ i[1]] == 0){
+          board[row][col] = level;
+          total += countSolutionsH(row+i[0],col+i[1], level + 1);
+          board[row][col] = 0; 
+        }
       }
+        catch (Exception e){}
     }
+    
     return total;
   }
   
