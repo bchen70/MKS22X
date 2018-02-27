@@ -46,10 +46,9 @@ public class KnightBoard{
     }
     return solveH(startingRow,startingCol,1);
   }
-  // public int countSolutions(int startingRow, int startingCol){
-  // }
+
   private boolean solveH(int row ,int col, int level){
-    if (level >= rows * cols ){
+    if (level > rows * cols ){
 	    return true;
     }
     for (int i[]: move){
@@ -57,7 +56,7 @@ public class KnightBoard{
         if (board[row][col] == 0){
           board[row][col] = level;
           if(solveH(row+i[0],col+i[1], level + 1)){
-            return true;			
+            return true;
           }
 
           else{
@@ -68,83 +67,9 @@ public class KnightBoard{
     }
     return false;
   }
- public static void main(String[] args){
-    KnightBoard a = new KnightBoard(3,3);
-
-    System.out.println(a);
-    /* Prints
-      _ _ _
-      _ _ _
-      _ _ _
-    */
-
-    for (int i = 0; i < 3; i++){
-      for (int j = 0; j < 3; j++){
-        if (a.solve(i,j)){
-          System.out.println("There is an error with your solve method");
-        }
-      }
-    } //prints nothing
-
-
-
-    KnightBoard b = new KnightBoard(5,5);
-    System.out.println(b.solve(0,0)); //prints true
-    System.out.println(b); //prints a valid solution
-
-    try{
-      b.solve(0,0);
-    }catch(IllegalStateException e){
-      System.out.println("Error: The board contains non-zero values");
-    } //prints "Error: The board contains non-zero values"
-
   
-    try{
-      KnightBoard b1 = new KnightBoard(-1,0);
-    }catch(IllegalArgumentException e){
-      System.out.println("Error: There cannot be negative parameters in the constructor");
-    } //prints "Error: There cannot be negative parameters in the constructor"
-
-    try{
-      KnightBoard b1 = new KnightBoard(1,-1);
-    }catch(IllegalArgumentException e){
-      System.out.println("Error: There cannot be negative parameters in the constructor");
-    } //prints "Error: There cannot be negative parameters in the constructor"
-
-    try{
-      KnightBoard b1 = new KnightBoard(-1,-1);
-    }catch(IllegalArgumentException e){
-      System.out.println("Error: There cannot be negative parameters in the constructor");
-    } //prints "Error: There cannot be negative parameters in the constructor"
-
-    try{
-      KnightBoard b1 = new KnightBoard(5,5);
-      b1.solve(0,-1);
-    }catch(IllegalArgumentException e){
-      System.out.println("Error: There cannot be negative parameters");
-    } //prints "Error: There cannot be negative parameters"
-
-    try{
-      KnightBoard b1 = new KnightBoard(5,5);
-      b1.solve(-1,0);
-    }catch(IllegalArgumentException e){
-      System.out.println("Error: There cannot be negative parameters");
-    } //prints "Error: There cannot be negative parameters"
-
-    try{
-      KnightBoard b1 = new KnightBoard(5,5);
-      b1.solve(-1,-1);
-    }catch(IllegalArgumentException e){
-      System.out.println("Error: There cannot be negative parameters");
-    } //prints "Error: There cannot be negative parameters"
-
-
-
-    for (int i = 0; i < 5; i++){
-      for (int j = 0; j < 5; j++){
-        KnightBoard abc = new KnightBoard(5,5);
-        System.out.println(abc.solve(i,j)); //prints alternating lines of true/false starting with true
-      }
+ public static void main(String[] args){
+ 
     }
  
 
