@@ -86,8 +86,13 @@ public class Maze{
         //COMPLETE SOLVE
         return -1; //so it compiles
     }
-    public static void main(String[] args) throws FileNotFoundException{
-        Maze f;
-        f = new Maze("data1.dat");
+    public static void main(String[] args){
+	try{
+	    Maze f;
+	    f = new Maze("data1.dat");
+	}
+	catch (FileNotFoundException e){
+	    System.out.println("Error: File not found");
+	}
     }
 }
