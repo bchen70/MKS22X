@@ -4,6 +4,7 @@ public class Maze{
 
     private char[][]maze;
     private boolean animate;//false by default
+    private int[][]x = {{1,0}, {0,1}, {-1, 0}, {0, -1}};
 
     /*Constructor loads a maze text file, and sets animate to false by default.
 
@@ -33,7 +34,7 @@ public class Maze{
 	}
 	col = str.length();
 	maze = new char[row][col];
-
+	
 	int num = 0;
 	int countS = 0;
 	int countE = 0;
@@ -115,12 +116,31 @@ public class Maze{
         }
 
         //COMPLETE SOLVE
-        return -1; //so it compiles
+	if (maze [row][col] == 'E'){
+	    return count;
+	}
+
+	for (int i[]:x){
+	    maze[row][col]= '@';
+	    if (maze[row+i[0]][col+i[1]] == ' ' || maze[row+i[0]][col+i[1]] == 'E' ){
+		int res = solve(row + i[0], col + i[1], count + 1);
+		if ( res != -1){
+		    return res;
+		}
+	    }
+	    maze[row][col] = '.';
+	}
+	return -1;
     }
+    
     public static void main(String[] args){
 	try{
 	    Maze f;
 	    f = new Maze("data1.dat");
+
+	    f.setAnimate(true);
+	    System.out.println(f.solve());
+	    System.out.println(f);
 	}
 	catch (Exception e){}
     }
