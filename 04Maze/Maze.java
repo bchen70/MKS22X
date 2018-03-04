@@ -132,16 +132,13 @@ public class Maze{
 	}
 	return -1;
     }
-    
-    public static void main(String[] args){
-	try{
-	    Maze f;
-	    f = new Maze("data1.dat");
-
-	    f.setAnimate(true);
-	    System.out.println(f.solve());
-	    System.out.println(f);
+    public String toString(){
+	String i = "";
+	for (char [] y:maze){
+	    for (char z: y)
+		i += z;
+	    i += "\n";
 	}
-	catch (Exception e){}
+	return i;
     }
 }
