@@ -19,13 +19,38 @@ public class Maze{
          throw a FileNotFoundException or IllegalStateException
     */
     public Maze(String filename) throws FileNotFoundException{
+	animate = false;
+	int row = 0;
+	int col = 0;
+       
 	File text = new File(filename);
 	Scanner inf = new Scanner(text);
 	while (inf.hasNextLine()){
 	    String line = inf.nextLine();
-	    System.out.println(line);
+	    line += line + "\n";
+	    row ++;		
 	}
-	animate = false;
+	col = line.length();
+	maze = new char[row][col];
+
+	int num = 0;
+	int countS = 0;
+	int countE = 0;
+	for (int c = 0; c < col ; c ++){
+	    if (line.charAt(num) == 'S'){
+		countS ++;
+	    }
+	    if (str.charAt(num) == 'E'){
+		countE ++;
+	    }
+	    if (countS > 1){
+		throw new IllegalStateException();
+	    }
+	    if (countE > 1){
+		throw new IllegalStateException();
+	    }
+	    num ++;
+	}
     }
     
     private void wait(int millis){
