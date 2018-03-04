@@ -22,32 +22,30 @@ public class Maze{
 	animate = false;
 	int row = 0;
 	int col = 0;
-       
+	String str = "";
+	
 	File text = new File(filename);
 	Scanner inf = new Scanner(text);
 	while (inf.hasNextLine()){
 	    String line = inf.nextLine();
-	    line += line + "\n";
+	    str = inf.nextLine();
 	    row ++;		
 	}
-	col = line.length();
+	col = str.length();
 	maze = new char[row][col];
 
 	int num = 0;
 	int countS = 0;
 	int countE = 0;
 	for (int c = 0; c < col ; c ++){
-	    if (line.charAt(num) == 'S'){
+	    if (str.charAt(num) == 'S'){
 		countS ++;
 	    }
 	    if (str.charAt(num) == 'E'){
 		countE ++;
 	    }
-	    if (countS > 1){
-		throw new IllegalStateException();
-	    }
-	    if (countE > 1){
-		throw new IllegalStateException();
+	    if (countS > 1 || countE > 1){
+		throw new IllegalStateException("Only use exactly one S and exactly one E");
 	    }
 	    num ++;
 	}
@@ -116,8 +114,6 @@ public class Maze{
 	    Maze f;
 	    f = new Maze("data1.dat");
 	}
-	catch (FileNotFoundException e){
-	    System.out.println("Error: File not found");
-	}
+	catch (Exception e){}
     }
 }
