@@ -29,11 +29,11 @@ public class Maze{
     }
     
     private void wait(int millis){
-         try {
-             Thread.sleep(millis);
-         }
-         catch (InterruptedException e) {
-         }
+	try {
+	    Thread.sleep(millis);
+	}
+	catch (InterruptedException e) {
+	}
     }
 
     public void setAnimate(boolean b){
