@@ -4,6 +4,7 @@ public class Maze{
 
     private char[][]maze;
     private boolean animate;//false by default
+    private int[][]x = {{1,0}, {0,1}, {-1, 0}, {0, -1}};
 
     /*Constructor loads a maze text file, and sets animate to false by default.
 
@@ -19,13 +20,36 @@ public class Maze{
          throw a FileNotFoundException or IllegalStateException
     */
     public Maze(String filename) throws FileNotFoundException{
+	animate = false;
+	int row = 0;
+	int col = 0;
+	String str = "";
+	
 	File text = new File(filename);
 	Scanner inf = new Scanner(text);
 	while (inf.hasNextLine()){
 	    String line = inf.nextLine();
-	    System.out.println(line);
+	    str = inf.nextLine();
+	    row ++;		
 	}
-	animate = false;
+	col = str.length();
+	maze = new char[row][col];
+	
+	int num = 0;
+	int countS = 0;
+	int countE = 0;
+	for (int c = 0; c < col ; c ++){
+	    if (str.charAt(num) == 'S'){
+		countS ++;
+	    }
+	    if (str.charAt(num) == 'E'){
+		countE ++;
+	    }
+	    if (countS > 1 || countE > 1){
+		throw new IllegalStateException("Only use exactly one S and exactly one E");
+	    }
+	    num ++;
+	}
     }
     
     private void wait(int millis){
@@ -51,13 +75,21 @@ public class Maze{
       Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
     */
     public int solve(){
-            //find the location of the S. 
+	int row = 0;
+	int col = 0;
+	for (int r = 0; r < maze.length; r++){
+	    for (int c = 0; c < maze[r].length; c++){
+		if (maze [r][c] == 'S'){
+		    row = r;
+		    col = c;
+		}
+	    }
+	}
 
-            //erase the S
-
-            //and start solving at the location of the s.
-            //return solve(???,???);
-	return 0;
+	//erase the S
+	maze[row][col] = ' ';
+	
+	return solve(row,col,0);
     }
 
     /*
@@ -74,7 +106,7 @@ public class Maze{
             Note: This is not required based on the algorithm, it is just nice visually to see.
         All visited spots that are part of the solution are changed to '@'
     */
-    private int solve(int row, int col){ //you can add more parameters since this is private
+    private int solve(int row, int col, int count){ //you can add more parameters since this is private
 
         //automatic animation! You are welcome.
         if(animate){
@@ -84,15 +116,29 @@ public class Maze{
         }
 
         //COMPLETE SOLVE
-        return -1; //so it compiles
+	if (maze [row][col] == 'E'){
+	    return count;
+	}
+
+	for (int i[]:x){
+	    maze[row][col]= '@';
+	    if (maze[row+i[0]][col+i[1]] == ' ' || maze[row+i[0]][col+i[1]] == 'E' ){
+		int res = solve(row + i[0], col + i[1], count + 1);
+		if ( res != -1){
+		    return res;
+		}
+	    }
+	    maze[row][col] = '.';
+	}
+	return -1;
     }
-    public static void main(String[] args){
-	try{
-	    Maze f;
-	    f = new Maze("data1.dat");
+    public String toString(){
+	String i = "";
+	for (char [] y:maze){
+	    for (char z: y)
+		i += z;
+	    i += "\n";
 	}
-	catch (FileNotFoundException e){
-	    System.out.println("Error: File not found");
-	}
+	return i;
     }
 }
