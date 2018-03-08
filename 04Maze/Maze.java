@@ -29,26 +29,29 @@ public class Maze{
 	Scanner inf = new Scanner(text);
 	while (inf.hasNextLine()){
 	    String line = inf.nextLine();
-	    str = inf.nextLine();
-	    row ++;		
+	    col = line.length();
+	    row ++;
+	    str += line;
 	}
-	col = str.length();
 	maze = new char[row][col];
-	
+
 	int num = 0;
 	int countS = 0;
 	int countE = 0;
-	for (int c = 0; c < col ; c ++){
-	    if (str.charAt(num) == 'S'){
-		countS ++;
+	for (int r = 0; r < row ; r++){
+	    for (int c = 0; c < col ; c ++){
+		maze[r][c] = str.charAt(num);
+		if (str.charAt(num) == 'S'){
+		    countS ++;
+		}
+		if (str.charAt(num) == 'E'){
+		    countE ++;
+		}
+		num ++;
 	    }
-	    if (str.charAt(num) == 'E'){
-		countE ++;
-	    }
-	    if (countS > 1 || countE > 1){
-		throw new IllegalStateException("Only use exactly one S and exactly one E");
-	    }
-	    num ++;
+	}
+	if (countS !=  1 || countE != 1){
+	    throw new IllegalStateException("Only use exactly one S and exactly one E");
 	}
     }
     
@@ -78,10 +81,9 @@ public class Maze{
 	int row = 0;
 	int col = 0;
 	for (int r = 0; r < maze.length; r++){
-	    for (int c = 0; c < maze[r].length; c++){
+	    for (int c = 0; c < maze[0].length; c++){
 		if (maze [r][c] == 'S'){
-		    row = r;
-		    col = c;
+		    return solve(row,col,0);
 		}
 	    }
 	}
@@ -89,7 +91,7 @@ public class Maze{
 	//erase the S
 	maze[row][col] = ' ';
 	
-	return solve(row,col,0);
+	return -1;
     }
 
     /*
@@ -121,24 +123,27 @@ public class Maze{
 	}
 
 	for (int i[]:x){
-	    maze[row][col]= '@';
-	    if (maze[row+i[0]][col+i[1]] == ' ' || maze[row+i[0]][col+i[1]] == 'E' ){
-		int res = solve(row + i[0], col + i[1], count + 1);
-		if ( res != -1){
-		    return res;
-		}
+	    int nrow = row + i[0];
+	    int ncol = col + i[1];
+	    char nloc = maze[nrow][ncol];
+	    if (nloc == ' ' || nloc == 'E'){
+		maze[row][col] = '@';
+		int psol = solve(nrow, ncol, count + 1);
+		if (psol == -1 ) maze[nrow][ncol] = '.';
+		else return psol;
 	    }
-	    maze[row][col] = '.';
 	}
 	return -1;
     }
     public String toString(){
-	String i = "";
-	for (char [] y:maze){
-	    for (char z: y)
-		i += z;
-	    i += "\n";
+	
+	String ans="";
+	for(int r=0;r<maze.length;r++){
+	    for(int c=0;c<maze[0].length;c++){
+		ans+=maze[r][c];
+	    }
+	    ans+= "\n";
 	}
-	return i;
+	return ans;
     }
 }
