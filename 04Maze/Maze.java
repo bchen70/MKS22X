@@ -83,7 +83,8 @@ public class Maze{
 	for (int r = 0; r < maze.length; r++){
 	    for (int c = 0; c < maze[0].length; c++){
 		if (maze [r][c] == 'S'){
-		    return solve(row,col,0);
+		    row = r;
+		    col=c;
 		}
 	    }
 	}
@@ -91,7 +92,7 @@ public class Maze{
 	//erase the S
 	maze[row][col] = ' ';
 	
-	return -1;
+	return solve(row,col,0);
     }
 
     /*
@@ -139,7 +140,7 @@ public class Maze{
 	
 	String ans="";
 	for(int r=0;r<maze.length;r++){
-	    for(int c=0;c<maze[0].length;c++){
+	    for(int c=0;c<maze[r].length;c++){
 		ans+=maze[r][c];
 	    }
 	    ans+= "\n";
