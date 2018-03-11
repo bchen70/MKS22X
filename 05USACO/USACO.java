@@ -2,29 +2,34 @@ import java.io.*;
 import java.util.*;
 
 public class USACO{
-
     public static void main(String[] args){
-	System.out.println(USACO.bronze("bronze1.dat"));	
+	System.out.println(USACO.bronze("bronze2.dat"));	
     }
     public static int bronze(String filename){
 	File line = new File(filename);
+	int lake[][];
+	int row,col,depth,com;
 	try {
 	    Scanner input = new Scanner(line);
+	    row = input.nextInt();
+	    col = input.nextInt();
+	    depth = input.nextInt();
+	    com = input.nextInt();
+	    lake  = new int[row][col];
 	    
-	    int row = input.nextInt();
-	    int col = input.nextInt();
-	    int depth = input.nextInt();
-	    int com = input.nextInt();
-
-	    int[][] lake  = new int[row][col];
 	    for (int i = 0; i <row;i++){
 		for (int x = 0; x < col; x ++){
-		    lake[i][x] = input.nextInt();
-		}
+		    if(input.hasNextInt()){
+			lake[i][x] = input.nextInt();
+		    }
+		}		
 	    }
 	    for (int x= 0; x< com; x++){
-		stomp(input.nextInt(),input.nextInt(),input.nextInt(), lake);
+		if (input.hasNextInt()){
+		    stomp(input.nextInt()-1,input.nextInt()-1,input.nextInt(),lake);
+		}
 	    }
+	    
 	    int aggDepth = 0;
 	    for (int i=0; i<row; i++){
 		for (int j=0; j<col; j++){
@@ -34,9 +39,10 @@ public class USACO{
 		}
 	    }
 	    return aggDepth * 72 * 72;
-	}
-	catch (FileNotFoundException e){
+	    
+	}catch (FileNotFoundException e){
 	    System.out.println("File not found.");
+	    System.exit(1);
 	}
 	return 0;
     }
@@ -45,20 +51,21 @@ public class USACO{
 	int max = 0;
 	for (int i = row; i < row + 3; i ++){
 	    for (int j = col; j < col +3; j++){
-		if (lake[i - 1][j-1] > max){
-		    max = lake[i - 1][j - 1];
+		if (lake[i][j] > max){
+		    max =lake[i][j];
 		}
 	    }
 	}
 	for (int x = row; x < row + 3; x++){
 	    for (int y = col; y < col + 3; y++){
-		if(lake[x - 1][y - 1] > max - depth){
-		    lake [x-1][y-1] = max - depth;
+		if(lake[x][y] > max - depth){
+		    lake [x][y] = max - depth;
 		}
 	    }
 	}
     }
-    
+  
+
     public static int silver(String filename){
 	return 0;
     }
