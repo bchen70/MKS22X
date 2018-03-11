@@ -3,7 +3,7 @@ import java.util.*;
 
 public class USACO{
     public static void main(String[] args){
-	System.out.println(USACO.bronze("bronze2.dat"));	
+	System.out.println(USACO.bronze("bronze1.dat"));	
     }
     public static int bronze(String filename){
 	File line = new File(filename);
