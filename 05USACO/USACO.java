@@ -92,21 +92,42 @@ public class USACO{
 	    sCol = input.nextInt() - 1;
 	    eRow = input.nextInt() - 1;
 	    eCol = input.nextInt() - 1;
+	    
 
 	    for(int x = 0; x < num; x ++){
 		for(int i = 0; i < row; i++){
 		    for(int j = 0; j < row; j++){
 			if (map[i][j] != '*'){
 			    int sumN = 0;
+			    if(isValid(i-1,j,row,col)){
+				sumN = sumN + oldNums[i-1][j];
+			    }
+			    if(isValid(i+1,j,row,col)){
+				sumN = sumN + oldNums[i+1][j];
+			    }
+			    if(isValid(i,j-1,row,col)){
+				sumN = sumN + oldNums[i][j-1];
+			    }
+			    if(isValid(i,j+1,row,col)){
+				sumN = sumN + oldNums[i][j+1];
+			    }
+			    newNums[i][j] = sumN;
 			}
 		    }
 		}
+		oldNums = newNums;
+		newNums = new int[row][col];
 	    }
+	    return oldNums[eRow][eCol];
 	} catch(FileNotFoundException e){
-		System.out.println("File not found");
-		System.exit(1);
+	    System.out.println("File not found");
+	    System.exit(1);
 	}
 	return -1;
     }
+    
+    public static boolean isValid(int cR,int cC, int r, int c){
+	return cR >= 0 && cC >= 0 && cR < r && cC < c;
+    }
 }
-
+    
