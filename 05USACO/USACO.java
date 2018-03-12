@@ -4,7 +4,7 @@ import java.util.*;
 public class USACO{
     public static void main(String[] args){
 	//System.out.println(USACO.bronze("bronze1.dat"));
-	System.out.println(USACO.silver("silver1.dat"));
+	System.out.println(USACO.silver("silver3.dat"));
     }
     public static int bronze(String filename){
 	File line = new File(filename);
@@ -82,17 +82,20 @@ public class USACO{
 	    map = new char[row][col];
 	    newNums = new int[row][col];
 	    oldNums = new int[row][col];
-
+	    
 	    for (int i = 0; i < row; i++){
+		String x = input.next();
 		for(int j = 0; j < col;j++){
-		    map[i][j] = input.next().charAt(j);
+		    map[i][j] = x.charAt(j);
 		}
 	    }
+
+	    
 	    sRow = input.nextInt() - 1;
 	    sCol = input.nextInt() - 1;
 	    eRow = input.nextInt() - 1;
 	    eCol = input.nextInt() - 1;
-	    
+	    oldNums[sRow][sCol] = 1;
 
 	    for(int x = 0; x < num; x ++){
 		for(int i = 0; i < row; i++){
