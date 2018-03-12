@@ -70,6 +70,7 @@ public class USACO{
   
     //THIS IS SILVER
     public static int silver(String filename){
+	int[][] oldNums,newNums;
 	char [][]map;
 	int row,col,num,sRow,sCol,eRow,eCol;
 	try{
@@ -79,10 +80,12 @@ public class USACO{
 	    col = input.nextInt();
 	    num= input.nextInt();
 	    map = new char[row][col];
+	    newNums = new int[row][col];
+	    oldNums = new int[row][col];
 
 	    for (int i = 0; i < row; i++){
 		for(int j = 0; j < col;j++){
-		    map[i][j] = line.charAt(j);
+		    map[i][j] = input.next().charAt(j);
 		}
 	    }
 	    sRow = input.nextInt() - 1;
@@ -98,10 +101,12 @@ public class USACO{
 			}
 		    }
 		}
-	    }  catch(FileNotFoundException e){
+	    }
+	} catch(FileNotFoundException e){
 		System.out.println("File not found");
 		System.exit(1);
-	    }
 	}
+	return -1;
     }
 }
+
