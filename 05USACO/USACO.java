@@ -3,7 +3,8 @@ import java.util.*;
 
 public class USACO{
     public static void main(String[] args){
-	System.out.println(USACO.bronze("bronze1.dat"));	
+	//System.out.println(USACO.bronze("bronze1.dat"));
+	System.out.println(USACO.silver("silver1.dat"));
     }
     public static int bronze(String filename){
 	File line = new File(filename);
@@ -64,9 +65,25 @@ public class USACO{
 	    }
 	}
     }
+    // END OF BRONZE
+    
   
-
+    //THIS IS SILVER
     public static int silver(String filename){
-	return 0;
+	char [][]map;
+	int row,col,num,sRow,sCol,eRow,eCol;
+	try{
+	    Scanner input = new Scanner(new File(filename));
+
+	    row = input.nextInt();
+	    col = input.nextInt();
+	    num= input.nextInt();
+	    map = new char[row][col];
+	    
+	}
+	catch(FileNotFoundException e){
+	    System.out.println("File not found");
+	    System.exit(1);
+	}
     }
 }
