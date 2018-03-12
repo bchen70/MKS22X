@@ -99,7 +99,7 @@ public class USACO{
 
 	    for(int x = 0; x < num; x ++){
 		for(int i = 0; i < row; i++){
-		    for(int j = 0; j < row; j++){
+		    for(int j = 0; j < col; j++){
 			if (map[i][j] != '*'){
 			    int sumN = 0;
 			    if(isValid(i-1,j,row,col)){
