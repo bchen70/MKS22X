@@ -79,11 +79,29 @@ public class USACO{
 	    col = input.nextInt();
 	    num= input.nextInt();
 	    map = new char[row][col];
-	    
-	}
-	catch(FileNotFoundException e){
-	    System.out.println("File not found");
-	    System.exit(1);
+
+	    for (int i = 0; i < row; i++){
+		for(int j = 0; j < col;j++){
+		    map[i][j] = line.charAt(j);
+		}
+	    }
+	    sRow = input.nextInt() - 1;
+	    sCol = input.nextInt() - 1;
+	    eRow = input.nextInt() - 1;
+	    eCol = input.nextInt() - 1;
+
+	    for(int x = 0; x < num; x ++){
+		for(int i = 0; i < row; i++){
+		    for(int j = 0; j < row; j++){
+			if (map[i][j] != '*'){
+			    int sumN = 0;
+			}
+		    }
+		}
+	    }  catch(FileNotFoundException e){
+		System.out.println("File not found");
+		System.exit(1);
+	    }
 	}
     }
 }
