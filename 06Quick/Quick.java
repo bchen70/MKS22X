@@ -1,5 +1,12 @@
 import java.util.*;
 public class Quick{
+
+    public static void main(String[] ary){
+	int[] data = {5,3,7,5,34,3,765};
+
+	System.out.println(partition(data,2, data.length-1));
+
+    }
     public static int partition(int []data,int start,int end){
 	int rand = start + (int)(Math.random() * (end - start + 1));
 	int pivot = data[rand];
@@ -9,10 +16,10 @@ public class Quick{
 	int e = end;
 
 	while (s <= e){
-	    if (data[s] < pivot){
+	    if (data[s] <= pivot){
 		s++;
 	    }
-	    else if (data[s] > pivot){
+	    else{
 		swap(s,e,data);
 		e -- ;
 	    }
