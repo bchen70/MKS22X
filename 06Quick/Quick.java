@@ -2,14 +2,14 @@ import java.util.*;
 public class Quick{
 
     public static void main(String[] args){
-	int[] ary = {5,3,7,5,34,3,765};
-
+	int[]ary = { 2, 10, 15, 23, 0,  5};
 	
 	System.out.println(Quick.quickselect(ary,0));
 	System.out.println(Quick.quickselect(ary,1));
 	System.out.println(Quick.quickselect(ary,2));
 	System.out.println(Quick.quickselect(ary,3));
 	System.out.println(Quick.quickselect(ary,4));
+	System.out.println(Quick.quickselect(ary,5));
     }
     public static int partition(int []data,int start,int end){
 	int rand = start + (int)(Math.random() * (end - start + 1));
@@ -47,7 +47,7 @@ public class Quick{
 		end = partition(data,start,end) - 1;
 	    }
 	}
-	return -1;	    
+	return data[(partition(data,start,end))];	    
     }
     public static void swap(int x, int y, int[] ary) {
         int temp = ary[x];
