@@ -11,6 +11,7 @@ public class Quick{
 	System.out.println(Quick.quickselect(ary,4));
 	System.out.println(Quick.quickselect(ary,5));
     }
+    
     public static int partition(int []data,int start,int end){
 	int rand = start + (int)(Math.random() * (end - start + 1));
 	int pivot = data[rand];
@@ -23,10 +24,12 @@ public class Quick{
 	    if (data[s] <= pivot){
 		s++;
 	    }
-	    else{
+	    if (data[s] > pivot){
 		swap(s,e,data);
 		e -- ;
 	    }
+	    else{
+		
 	}
 	swap(start,e,data);
 	return e;
@@ -49,10 +52,15 @@ public class Quick{
 	}
 	return data[(partition(data,start,end))];	    
     }
+    
+    public static void quicksort(int [] ary){
+	
+    }
+    
     public static void swap(int x, int y, int[] ary) {
         int temp = ary[x];
         ary[x] = ary[y];
         ary[y] = temp;
-    } 
+    }
 }
     
