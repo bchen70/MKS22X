@@ -1,4 +1,7 @@
 public class Merge{
+    public static void mergesort(int []data){
+    }
+    
     public static void merge(int[] aryA, int[] aryB, int[] destination)
     {
         int a = 0, b = 0;
@@ -11,5 +14,10 @@ public class Merge{
                 b++;
             }
         }
+    }
+    private static void msort(int[]data, int[]temp,int lo, int hi){
+	int mid = (lo+hi)/ 2;
+	msort(temp,data,lo,mid);
+	msort(temp,data,mid + 1,hi);
     }
 }
