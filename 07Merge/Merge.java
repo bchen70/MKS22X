@@ -1,19 +1,6 @@
 public class Merge{
-    public static void mergesort(int []data){
-    }
-    
-    public static void merge(int[] aryA, int[] aryB, int[] destination)
-    {
-        int a = 0, b = 0;
-        while (a < aryA.length && b < aryB.length) {
-            if (aryA[a] < aryB[b]) {
-                destination[a + b] = aryA[a];
-                a++;
-            } else {
-                destination[a + b] = aryB[b];
-                b++;
-            }
-        }
+    public static void mergesort(int[] data){
+	msort(data,temp,0,data.length-1);
     }
     private static void msort(int[]data, int[]temp,int lo, int hi){
 	int mid = (lo+hi)/ 2;
