@@ -17,42 +17,49 @@ public class Quick{
     }
     
     
-    public static int partition(int []data,int start,int end){
+    public static int[] partition(int []data,int start,int end){
 	int rand = (int)(Math.random() * (end - start + 1)+ start);
 	int pivot = data[rand];
-	swap(rand,start,data);
-
-	int s = start + 1;
-	int e = end;
-
-	while (s <= e){
-	    if (data[s] <= pivot){
-		s++;
+	swap (start, rand,data);
+	
+	int i = start + 1;
+	int lt = start;
+	int gt = end;
+	
+	while (i <= gt) {
+	    if (data[i] == pivot) {
+		i++;
+	    }
+	    else if (data[i] > pivot) {
+		swap(i, gt,data);
+		gt--;
 	    }
 	    else{
-		swap(s,e,data);
-		e -- ;
+		swap(i, lt,data);
+		i++;
+		lt++;
 	    }
 	}
-	swap(start,e,data);
-	return e;	
+	int[] x = {lt,i};
+	return x;
     }
+    
 
     public static int quickselect(int[]data,int k){
 	int start = 0;
 	int end = data.length-1;
-	for(int i =0;i<data.length; i++){
-	    if (partition(data,start,end) == k){
-		return data[(partition(data,start,end))];
+	int []x=partition(data,start,end);
+	while (x[0] > k || x[1]< k){   
+			      
+	    if (x[0] < k){
+		start = x[1]+1;
 	    }
-	    if (partition(data,start,end) < k){
-		start = partition(data,start,end) + 1;
+	    else if (x[1] > k) {
+		end = x[0]-1;
 	    }
-	    else{
-		end = partition(data,start,end) - 1;
-	    }
+	    x = partition(data, start, end);
 	}
-	return data[(partition(data,start,end))];	    
+	return data[x[0]];
     }
     
     public static void quicksort(int [] data){
@@ -60,9 +67,9 @@ public class Quick{
     }
     public static void quicksortH(int []data,int start, int end){
 	if(start < end){
-	    int div = partition(data,start,end);
-	    quicksortH(data,start,div-1);
-	    quicksortH(data,div + 1,end);
+	    int[] div = partition(data,start,end);
+	    quicksortH(data,start,div[0]-1);
+	    quicksortH(data,div[1],end);
 	}
     }
     
@@ -72,4 +79,3 @@ public class Quick{
         ary[y] = temp;
     }
 }
-    
