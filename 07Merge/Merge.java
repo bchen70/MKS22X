@@ -4,25 +4,11 @@ public class Merge{
     }
     private static void msort(int[]data, int[]temp,int lo, int hi){
 	int mid = (lo+hi)/ 2;
-	int a = 0;
-	int b = 0;
-	while (a < data.length){
-	    
-	    if (lo >= hi){
-		return;
-	    }
-	    temp = data;
-	    if (data[lo]>=data[lo + 1]){
-		temp[a] = data[lo + 1];
-		a++;
-	    }
-	    else{
-		temp[a] = data[lo];
-		a++;
+	if (lo <  hi){
+	    for (int i = lo; i<= hi; i++){
+		temp[i] = data [i];
 	    }
 	}
-	    
-	    
 	msort(temp,data,lo,mid);
 	msort(temp,data,mid + 1,hi);
     }
