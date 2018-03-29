@@ -1,9 +1,11 @@
 public class MyLinkedList{
-    int length;
-    Node first;
-    Node last;
+    private int length;
+    private Node first;
+    private Node last;
     public MyLinkedList(){
-	
+	first = null;
+	last = null;
+	length = 0;
     }
     
     public boolean add(int value){
