@@ -1,4 +1,5 @@
 public class Merge{
+    /// FIX THE CODE
     public static void merge(int[] data, int[] temp, int lo, int hi,int lo2, int hi2){
 	int mid = (lo+hi)/ 2;
 	for (int i = lo; i <= hi2 ; i++){
