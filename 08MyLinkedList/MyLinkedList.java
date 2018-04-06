@@ -61,6 +61,18 @@ public class MyLinkedList{
     }
     
     public boolean add(int value){
+	if (length == 0){
+	    Node x = new Node(value);
+	    first = x;
+	    last = x;
+	}
+	else{
+	    Node x = new Node(value);
+	    x.setPrev(last);
+	    last.setNext(x);
+	    last = x;
+	}
+	length = length + 1;
 	return true;
     }
 
@@ -103,5 +115,16 @@ public class MyLinkedList{
 	cur.setValue(newValue);
 	return n;
     }
-    
+    public int indexOf(Integer value){
+	int x= 0;
+	Node cur = first;
+	while (cur != null){
+	    if (cur.getValue() == value){
+		return x;
+	    }
+	    x = x+1;
+	    cur = cur.getNext();
+	}
+	return -1;
+    }
 }
