@@ -41,6 +41,7 @@ public class MyLinkedList{
 	}
 
 	public String toString(){
+	    return String.valueOf(data);
 	}
     }
 
@@ -52,10 +53,14 @@ public class MyLinkedList{
 	last = null;
 	length = 0;
     }
+
+    public void clear(){
+	first = null;
+	last = null;
+	length = 0;
+    }
     
     public boolean add(int value){
-	data = value;
-	length = length + 1;
 	return true;
     }
 
@@ -64,10 +69,16 @@ public class MyLinkedList{
     }
     
     public String toString(){
-	if (size == 0){
+	if (length == 0){
 	    return "[]";
 	}
 	String str = "[";
+	Node cur = first;
+	while (cur.getNext() != null){
+	    str = str + cur.toString() + ", ";
+	    cur = cur.getNext();
+	}
+	return str + cur.toString() + "]";
     }
     
     public int get(int index){
@@ -77,8 +88,4 @@ public class MyLinkedList{
     public void set(int index,int newValue){
     }
     
-    private class Node{
-	private Node next,prev;
-	private int data;
-    }
 }
