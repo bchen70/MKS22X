@@ -1,4 +1,49 @@
 public class MyLinkedList{
+
+    private class Node{
+	private Node next, prev;
+	private int data;
+
+	public Node(int x){
+	    data =x;
+	    next = null;
+	    prev = null;
+	}
+
+	public Node(int x , Node y, Node z){
+	    data = x;
+	    prev = y;
+	    next = z;
+	}
+
+	public Node getNext(){
+	    return next;
+	}
+
+	public void setNext(Node n){
+	    next = n;
+	}
+
+	public Node getPrev(){
+	    return prev;
+	}
+
+	public void setPrev(Node n){
+	    prev = n;
+	}
+
+	public int getValue(){
+	    return data;
+	}
+
+	public void setValue(int x){
+	    data = x;
+	}
+
+	public String toString(){
+	}
+    }
+
     private int length;
     private Node first;
     private Node last;
@@ -19,7 +64,10 @@ public class MyLinkedList{
     }
     
     public String toString(){
-	return "x";
+	if (size == 0){
+	    return "[]";
+	}
+	String str = "[";
     }
     
     public int get(int index){
