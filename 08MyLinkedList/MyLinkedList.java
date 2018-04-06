@@ -80,12 +80,28 @@ public class MyLinkedList{
 	}
 	return str + cur.toString() + "]";
     }
-    
-    public int get(int index){
-	return index;
+
+    private Node getNode(int index){
+	if (index < 0 || index >= length){
+	    throw new IndexOutOfBoundsException();
+	}
+	Node cur = first;
+	while (index >0){
+	    cur = cur.getNext();
+	    index = index - 1;
+	}
+	return cur;
+    }
+    public Integer get(int index){
+	Node x = getNode(index);
+	return x.getValue();
     }
     
-    public void set(int index,int newValue){
+    public Integer set(int index,int newValue){
+	Node cur = getNode(index);
+	int n = cur.getValue();
+	cur.setValue(newValue);
+	return n;
     }
     
 }
