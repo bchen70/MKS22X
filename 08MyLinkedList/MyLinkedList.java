@@ -127,4 +127,77 @@ public class MyLinkedList{
 	}
 	return -1;
     }
+    public void add(int index ,Integer value){
+	if (index < 0 || index > length){
+	    throw new IndexOutOfBoundsException();
+	}
+	Node x = new Node(value);
+	if (index == length){
+	    add(value);
+	}
+	else if (index == 0){
+	    x.setNext(first);
+	    first.setPrev(x);
+	    first = x;
+	    length = length + 1;
+	}
+	else{
+	    Node after = getNode(index);
+	    Node before = after.getPrev();
+	    x.setNext(after);
+	    x.setPrev(before);
+	    before.setNext(x);
+	    after.setPrev(x);
+	    length = length + 1;
+	}
+    }
+    public boolean remove(Integer value){
+	int x = indexOf(value);
+	if (x == -1){
+	    return false;
+	}
+	else if (x== 0){
+	    first = first.getNext();
+	    first.setPrev(null);
+	    length = length - 1;
+	}
+	else if(x== length - 1){
+	    last = last.getPrev();
+	    last.setNext(null);
+	    length = length - 1;
+	}
+	else{
+	    Node before = getNode(x - 1);
+	    Node after = getNode(x + 1);
+	    before.setNext(after);
+	    after.setPrev(before);
+	    length = length - 1;
+	}
+	return true;
+    }
+
+    public Integer remove(int index){
+	if (index < 0 || index >= length){
+	    throw new IndexOutOfBoundsException();
+	}
+	int x = get(index);
+	if (index == 0){
+	    first = first.getNext();
+	    first.setPrev(null);
+	    length = length - 1;
+	}
+	else if (index == length -1){
+	    last = last.getPrev();
+	    last.setNext(null);
+	    length = length - 1;
+	}
+	else{
+	    Node before = getNode(index - 1);
+	    Node after = getNode(index + 1);
+	    before.setNext(after);
+	    after.setPrev(before);
+	    length = length - 1;
+	}
+	return x;
+    }
 }
