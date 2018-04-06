@@ -1,16 +1,30 @@
 public class Merge{
     /// FIX THE CODE
     public static void merge(int[] data, int[] temp, int lo, int hi,int lo2, int hi2){
-	int mid = (lo+hi)/ 2;
-	for (int i = lo; i <= hi2 ; i++){
-	    if (lo <= hi && (lo2 > hi2 || temp[lo] <= temp[lo2])){
-		data[i] = temp[lo];
+	int first = lo;
+
+	while(lo <= hi && lo2 <= hi2){
+	    if(temp[lo] <= temp[lo2]){
+		data[first] = temp[lo];
+		first ++;
 		lo ++;
 	    }
-	    else{
-		data[i] = temp[lo2];
+	    else if(temp[lo] > temp[lo2]){
+		data[first] = temp[lo2];
+		first ++;
 		lo2++;
 	    }
+	}
+
+	while (lo <= hi){
+	    data[first] = temp[lo];
+	    first ++;
+	    lo++;
+	}
+	while (lo2 <= hi2){
+	    data[first] = temp[lo2];
+	    first++;
+	    lo2++;
 	}
     }
     
@@ -24,9 +38,9 @@ public class Merge{
 	    for (int i = lo; i<= hi; i++){
 		temp[i] = data [i];
 	    }
-	}
 	msort(temp,data,lo,mid);
 	msort(temp,data,mid + 1,hi);
 	merge(data,temp,lo,mid,mid + 1,hi);
+	}
     }
 }
