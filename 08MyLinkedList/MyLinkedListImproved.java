@@ -1,16 +1,16 @@
-public class MyLinkedList{
+public class MyLinkedListImproved<T>{
 
     private class Node{
 	private Node next, prev;
-	private int data;
+	private T data;
 
-	public Node(int x){
+	public Node(T x){
 	    data =x;
 	    next = null;
 	    prev = null;
 	}
 
-	public Node(int x , Node y, Node z){
+	public Node(T x , Node y, Node z){
 	    data = x;
 	    prev = y;
 	    next = z;
@@ -32,11 +32,11 @@ public class MyLinkedList{
 	    prev = n;
 	}
 
-	public int getValue(){
+	public T getValue(){
 	    return data;
 	}
 
-	public void setValue(int x){
+	public void setValue(T x){
 	    data = x;
 	}
 
@@ -48,7 +48,7 @@ public class MyLinkedList{
     private int length;
     private Node first;
     private Node last;
-    public MyLinkedList(){
+    public MyLinkedListImproved(){
 	first = null;
 	last = null;
 	length = 0;
@@ -60,7 +60,7 @@ public class MyLinkedList{
 	length = 0;
     }
     
-    public boolean add(int value){
+    public boolean add(T value){
 	if (length == 0){
 	    Node x = new Node(value);
 	    first = x;
@@ -104,18 +104,18 @@ public class MyLinkedList{
 	}
 	return cur;
     }
-    public Integer get(int index){
+    public T get(int index){
 	Node x = getNode(index);
 	return x.getValue();
     }
     
-    public Integer set(int index,int newValue){
+    public T set(int index,T newValue){
 	Node cur = getNode(index);
-	int n = cur.getValue();
+	T n = cur.getValue();
 	cur.setValue(newValue);
 	return n;
     }
-    public int indexOf(Integer value){
+    public int indexOf(T value){
 	int x= 0;
 	Node cur = first;
 	while (cur != null){
@@ -127,7 +127,7 @@ public class MyLinkedList{
 	}
 	return -1;
     }
-    public void add(int index ,Integer value){
+    public void add(int index ,T value){
 	if (index < 0 || index > length){
 	    throw new IndexOutOfBoundsException();
 	}
@@ -151,7 +151,7 @@ public class MyLinkedList{
 	    length = length + 1;
 	}
     }
-    public boolean remove(Integer value){
+    public boolean remove(T value){
 	int x = indexOf(value);
 	if (x == -1){
 	    return false;
@@ -176,11 +176,11 @@ public class MyLinkedList{
 	return true;
     }
 
-    public Integer remove(int index){
+    public T remove(int index){
 	if (index < 0 || index >= length){
 	    throw new IndexOutOfBoundsException();
 	}
-	int x = get(index);
+	T x = get(index);
 	if (index == 0){
 	    first = first.getNext();
 	    first.setPrev(null);
