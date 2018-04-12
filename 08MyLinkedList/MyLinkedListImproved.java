@@ -1,4 +1,6 @@
-public class MyLinkedListImproved<T>{
+import java.util.*;
+import java.io.*;
+public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T>{
 
     private class Node{
 	private Node next, prev;
@@ -199,5 +201,68 @@ public class MyLinkedListImproved<T>{
 	    length = length - 1;
 	}
 	return x;
+    }
+
+    public int max(){
+	if(length == 0){
+	    return -1;
+	}
+	Node node = first;
+	int maxIndex = 0;
+	int i = 0;
+	T max = node.getValue();
+	while(node != null){
+	    if(node.getValue().compareTo(max) > 0){
+		maxIndex = i;
+		max = node.getValue();
+	    }
+	    i++;
+	    node = node.getNext();
+	}
+	return maxIndex;
+    }
+
+    public int min(){
+	if(length == 0){
+	    return -1;
+	}
+	Node node = first;
+	int minIndex = 0;
+	int i = 0;
+	T min = node.getValue();
+	while(node != null){
+	    if(node.getValue().compareTo(min) < 0){
+		minIndex = i;
+		min = node.getValue();
+	    }
+	    i++;
+	    node = node.getNext();
+	}
+	return minIndex;
+    }
+
+    public Iterator<T>iterator(){
+	return new LLIterator(first);
+    }
+    public class LLIterator implements Iterator<T>{
+	public Node curNode;
+
+	public LLIterator(Node yab){
+	    curNode = yab;
+	}
+	  
+	public boolean hasNext(){
+	    if (curNode == null){
+		return false;
+	    }
+	    return true;
+	}
+
+	public T next(){
+	    T res = curNode.getValue();
+	    curNode = curNode.getNext();
+	    return res;
+	}
+	  
     }
 }
