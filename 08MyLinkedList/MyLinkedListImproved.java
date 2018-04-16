@@ -2,148 +2,148 @@ import java.util.*;
 import java.io.*;
 public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T>{
 
-    private class Node{
-	private Node next, prev;
-	private T data;
+  private class Node{
+    private Node next, prev;
+    private T data;
 
-	public Node(T x){
+    public Node(T x){
 	    data =x;
 	    next = null;
 	    prev = null;
-	}
+    }
 
-	public Node(T x , Node y, Node z){
+    public Node(T x , Node y, Node z){
 	    data = x;
 	    prev = y;
 	    next = z;
-	}
+    }
 
-	public Node getNext(){
+    public Node getNext(){
 	    return next;
-	}
+    }
 
-	public void setNext(Node n){
+    public void setNext(Node n){
 	    next = n;
-	}
+    }
 
-	public Node getPrev(){
+    public Node getPrev(){
 	    return prev;
-	}
+    }
 
-	public void setPrev(Node n){
+    public void setPrev(Node n){
 	    prev = n;
-	}
+    }
 
-	public T getValue(){
+    public T getValue(){
 	    return data;
-	}
+    }
 
-	public void setValue(T x){
+    public void setValue(T x){
 	    data = x;
-	}
+    }
 
-	public String toString(){
+    public String toString(){
 	    return String.valueOf(data);
-	}
     }
+  }
 
-    private int length;
-    private Node first;
-    private Node last;
-    public MyLinkedListImproved(){
-	first = null;
-	last = null;
-	length = 0;
-    }
+  private int length;
+  private Node first;
+  private Node last;
+  public MyLinkedListImproved(){
+    first = null;
+    last = null;
+    length = 0;
+  }
 
-    public void clear(){
-	first = null;
-	last = null;
-	length = 0;
-    }
+  public void clear(){
+    first = null;
+    last = null;
+    length = 0;
+  }
     
-    public boolean add(T value){
-	if (length == 0){
+  public boolean add(T value){
+    if (length == 0){
 	    Node x = new Node(value);
 	    first = x;
 	    last = x;
-	}
-	else{
+    }
+    else{
 	    Node x = new Node(value);
 	    x.setPrev(last);
 	    last.setNext(x);
 	    last = x;
-	}
-	length = length + 1;
-	return true;
     }
+    length = length + 1;
+    return true;
+  }
 
-    public int size(){
-	return length;
-    }
+  public int size(){
+    return length;
+  }
     
-    public String toString(){
-	if (length == 0){
+  public String toString(){
+    if (length == 0){
 	    return "[]";
-	}
-	String str = "[";
-	Node cur = first;
-	while (cur.getNext() != null){
+    }
+    String str = "[";
+    Node cur = first;
+    while (cur.getNext() != null){
 	    str = str + cur.toString() + ", ";
 	    cur = cur.getNext();
-	}
-	return str + cur.toString() + "]";
     }
+    return str + cur.toString() + "]";
+  }
 
-    private Node getNode(int index){
-	if (index < 0 || index >= length){
+  private Node getNode(int index){
+    if (index < 0 || index >= length){
 	    throw new IndexOutOfBoundsException();
-	}
-	Node cur = first;
-	while (index >0){
+    }
+    Node cur = first;
+    while (index >0){
 	    cur = cur.getNext();
 	    index = index - 1;
-	}
-	return cur;
     }
-    public T get(int index){
-	Node x = getNode(index);
-	return x.getValue();
-    }
+    return cur;
+  }
+  public T get(int index){
+    Node x = getNode(index);
+    return x.getValue();
+  }
     
-    public T set(int index,T newValue){
-	Node cur = getNode(index);
-	T n = cur.getValue();
-	cur.setValue(newValue);
-	return n;
-    }
-    public int indexOf(T value){
-	int x= 0;
-	Node cur = first;
-	while (cur != null){
+  public T set(int index,T newValue){
+    Node cur = getNode(index);
+    T n = cur.getValue();
+    cur.setValue(newValue);
+    return n;
+  }
+  public int indexOf(T value){
+    int x= 0;
+    Node cur = first;
+    while (cur != null){
 	    if (cur.getValue() == value){
-		return x;
+        return x;
 	    }
 	    x = x+1;
 	    cur = cur.getNext();
-	}
-	return -1;
     }
-    public void add(int index ,T value){
-	if (index < 0 || index > length){
+    return -1;
+  }
+  public void add(int index ,T value){
+    if (index < 0 || index > length){
 	    throw new IndexOutOfBoundsException();
-	}
-	Node x = new Node(value);
-	if (index == length){
+    }
+    Node x = new Node(value);
+    if (index == length){
 	    add(value);
-	}
-	else if (index == 0){
+    }
+    else if (index == 0){
 	    x.setNext(first);
 	    first.setPrev(x);
 	    first = x;
 	    length = length + 1;
-	}
-	else{
+    }
+    else{
 	    Node after = getNode(index);
 	    Node before = after.getPrev();
 	    x.setNext(after);
@@ -151,118 +151,130 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	    before.setNext(x);
 	    after.setPrev(x);
 	    length = length + 1;
-	}
     }
-    public boolean remove(T value){
-	int x = indexOf(value);
-	if (x == -1){
+  }
+  public boolean remove(T value){
+    int x = indexOf(value);
+    if (x == -1){
 	    return false;
-	}
-	else if (x== 0){
+    }
+    else if (x== 0){
 	    first = first.getNext();
 	    first.setPrev(null);
 	    length = length - 1;
-	}
-	else if(x== length - 1){
+    }
+    else if(x== length - 1){
 	    last = last.getPrev();
 	    last.setNext(null);
 	    length = length - 1;
-	}
-	else{
+    }
+    else{
 	    Node before = getNode(x - 1);
 	    Node after = getNode(x + 1);
 	    before.setNext(after);
 	    after.setPrev(before);
 	    length = length - 1;
-	}
-	return true;
     }
+    return true;
+  }
 
-    public T remove(int index){
-	if (index < 0 || index >= length){
+  public T remove(int index){
+    if (index < 0 || index >= length){
 	    throw new IndexOutOfBoundsException();
-	}
-	T x = get(index);
-	if (index == 0){
+    }
+    T x = get(index);
+    if (index == 0){
 	    first = first.getNext();
 	    first.setPrev(null);
 	    length = length - 1;
-	}
-	else if (index == length -1){
+    }
+    else if (index == length -1){
 	    last = last.getPrev();
 	    last.setNext(null);
 	    length = length - 1;
-	}
-	else{
+    }
+    else{
 	    Node before = getNode(index - 1);
 	    Node after = getNode(index + 1);
 	    before.setNext(after);
 	    after.setPrev(before);
 	    length = length - 1;
-	}
-	return x;
     }
+    return x;
+  }
 
-    public int max(){
-	if(length == 0){
+  public int max(){
+    if(length == 0){
 	    return -1;
-	}
-	Node node = first;
-	int maxIndex = 0;
-	int i = 0;
-	T max = node.getValue();
-	while(node != null){
+    }
+    Node node = first;
+    int maxIndex = 0;
+    int i = 0;
+    T max = node.getValue();
+    while(node != null){
 	    if(node.getValue().compareTo(max) > 0){
-		maxIndex = i;
-		max = node.getValue();
+        maxIndex = i;
+        max = node.getValue();
 	    }
 	    i++;
 	    node = node.getNext();
-	}
-	return maxIndex;
     }
+    return maxIndex;
+  }
 
-    public int min(){
-	if(length == 0){
+  public int min(){
+    if(length == 0){
 	    return -1;
-	}
-	Node node = first;
-	int minIndex = 0;
-	int i = 0;
-	T min = node.getValue();
-	while(node != null){
+    }
+    Node node = first;
+    int minIndex = 0;
+    int i = 0;
+    T min = node.getValue();
+    while(node != null){
 	    if(node.getValue().compareTo(min) < 0){
-		minIndex = i;
-		min = node.getValue();
+        minIndex = i;
+        min = node.getValue();
 	    }
 	    i++;
 	    node = node.getNext();
-	}
-	return minIndex;
     }
-
-    public Iterator<T>iterator(){
-	return new LLIterator(first);
+    return minIndex;
+  }
+  
+  public void extend(MyLinkedListImproved<T> other){
+    if(other.size() != 0){
+	    int s = this.size() + other.size();
+	    last.setNext(other.last);
+	    other.first.setPrev(last);
+	    last = other.last;
+	    other.first = null;
+      other.last = null;
+	    other.length = 0;
     }
-    public class LLIterator implements Iterator<T>{
-	public Node curNode;
+  }
 
-	public LLIterator(Node yab){
+  public Iterator<T>iterator(){
+    return new LLIterator(first);
+  }
+  public class LLIterator implements Iterator<T>{
+    public Node curNode;
+
+    public LLIterator(Node yab){
 	    curNode = yab;
-	}
+    }
 	  
-	public boolean hasNext(){
+    public boolean hasNext(){
 	    if (curNode == null){
-		return false;
+        return false;
 	    }
 	    return true;
-	}
+    }
 
-	public T next(){
+    public T next(){
 	    T res = curNode.getValue();
 	    curNode = curNode.getNext();
 	    return res;
-	}
-	  
     }
+	  
+  }
 }
