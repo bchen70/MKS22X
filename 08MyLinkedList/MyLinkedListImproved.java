@@ -64,19 +64,18 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
     
   public boolean add(T value){
     if (length == 0){
-	    Node x = new Node(value);
-	    first = x;
-	    last = x;
+      first = new Node(value);
+		  last = first;
     }
     else{
-	    Node x = new Node(value);
-	    x.setPrev(last);
-	    last.setNext(x);
-	    last = x;
+      Node newNode = new Node(value);
+      newNode.setPrev(last);
+      last.setNext(newNode);
+      last = newNode;
     }
-    length = length + 1;
-    return true;
-  }
+    length++;
+    return  true;
+}
 
   public int size(){
     return length;

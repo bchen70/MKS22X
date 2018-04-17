@@ -1,40 +1,68 @@
 import java.util.*;
+@SuppressWarnings("unchecked")
 
 public class Sorts{
   public static void radixsort(MyLinkedListImproved<Integer> data){
-    if (data.size() != 0){
+    if (data.size() > 0){
       @SuppressWarnings("unchecked")
-        MyLinkedListImproved<Integer>[] pos = new MyLinkedListImproved[10];
+        MyLinkedListImproved<Integer> pos = new MyLinkedListImproved<Integer>();
       @SuppressWarnings("unchecked")
-        MyLinkedListImproved<Integer>[] neg = new MyLinkedListImproved[10];
-      for(int i = 0; i < 10; i++){
-        pos[i] = new MyLinkedListImproved<Integer>();
-        neg[i] = new MyLinkedListImproved<Integer>();
-      }
-
-      int maxNum = (Math.max(Math.abs(data.get(data.max())), Math.abs(data.get(data.min()))) + "").length();
-
-      for(int i = 0; i < maxNum ; i++){
-        for (Integer x : data){
-          if (x >= 0){
-            pos[(int)(x / Math.pow(10, i)) % 10].add(x);
+        MyLinkedListImproved<Integer> neg = new MyLinkedListImproved<Integer>();
+      for(Integer n : data){
+        int index = 0;
+        if (n < 0){
+          neg.add(n * -1);
         }
         else{
-          neg[Math.abs(9-(int)(x*-1 / Math.pow(10, i)) % 10)].add(x);
-        }
-        }
-        data.clear();
-        for (int y = 0; y < neg.length; y++){
-        data.extend(neg[y]);
-        }
-        for (int z = 0; z < pos.length; z++){
-        data.extend(pos[z]);
+          pos.add(n);
         }
       }
+      hsort(neg);
+      hsort(pos);
+      MyLinkedListImproved<Integer> origin = new MyLinkedListImproved<Integer>();
+      for(Integer n : neg){
+        origin.add(0, n * -1);
+      }
+      origin.extend(pos);
+      data.clear();
+      data.extend(origin);
+
     }
   }
+
+    public static void hsort(MyLinkedListImproved<Integer> data){
+      Integer a = data.max();
+      int times = (int)(Math.log(a)/Math.log(10));
+      times = times + 1;
+      for(int x = 1; x <= times; x++){
+        MyLinkedListImproved<Integer>[] buckets = new MyLinkedListImproved[10];
+        for(int y = 0; y < 10; y++){
+          buckets[y] = new MyLinkedListImproved<Integer>();
+        }
+        for(Integer n : data){
+          int pow = 1;
+          for(int p = 0; p < x; p++){
+            pow = pow * 10;
+          }
+          int rem = n % pow;
+          int dig = rem / (pow / 10);
+          buckets[dig].add(n);
+        }
+        MyLinkedListImproved<Integer> c = new MyLinkedListImproved<Integer>();
+        for(int y = 0; y < 10; y++){
+          c.extend(buckets[y]);   
+        }
+        data.clear();
+        data.extend(c);
+      }
+    }
+    
   
-public static void main(String[] args) {
+  public static void radixsortIncludingNegatives(MyLinkedListImproved<Integer>data){
+    radixsort(data);
+  }
+  
+  public static void main(String[] args) {
     //-----------SORTING POSITIVES-----------
     System.out.println("TESTING ON POSITIVE INTEGERS ONLY:");
     MyLinkedListImproved<Integer> data = new MyLinkedListImproved<>();
@@ -274,6 +302,7 @@ public static void main(String[] args) {
     }
   }
 
-}
+  }
+  
     
   
