@@ -1,9 +1,11 @@
-public class Eval{
+public class Calculator{
 
   public static double eval(String eq){
     Stack<String> stack = new Stack();
     String temp = "";
-
+    
+    
+    
   }
   public static String solve(String operator, double num1, double num2){
     if (operator.equals("+")){
@@ -19,7 +21,7 @@ public class Eval{
     }
 
     else if (operator.equals("/")){
-      return (num2 / num1) + "";
+      return (num1 / num2) + "";
     }
 
     else{
