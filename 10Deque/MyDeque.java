@@ -65,5 +65,31 @@ public class MyDeque<E>{
 	length--;
 	return cur;
     }
-    
+
+    public void addLast(E element){
+	if(element == null){
+	    throw new NullPointerException();
+	}
+	if (length == data.length){
+	    resize();
+	}
+	if (length != 0){
+	    last = (last + 1)% data.length;
+	}
+	data[last] = element;
+	length++;
+    }
+
+    public E removeLast() {
+	if (length < 1) {
+	    throw new NoSuchElementException();
+	}
+	E cur = data[last];
+	data[last] = null;
+	if (length > 1){
+	    last  = (last -1+data.length) % data.length;
+	}
+	length--;
+	return cur;
+    }
 }
