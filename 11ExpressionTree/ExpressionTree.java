@@ -28,8 +28,13 @@ public class ExpressionTree{
   
     /*return the value of the specified expression tree*/
     public double evaluate(){
-	/*you are to write this method*/
-	return 0.0;
+	if (isValue()){
+	    return getValue();
+	}else{
+	    double a = getLeft().evaluate();
+	    double b = getRight().evaluate();
+	    return apply(getOp(),a,b);
+	}
     }
    
     
