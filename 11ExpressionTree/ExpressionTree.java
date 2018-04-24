@@ -40,8 +40,20 @@ public class ExpressionTree{
     
     /*use the correct operator on both a and b, and return that value*/
     private double apply(char op, double a, double b){
-	/*you are to write this method*/
-	return 0.0;
+	double ans = 0.0;
+	if (op == '+'){
+	    ans = a + b;
+	}
+	if (op == '-'){
+	    ans = a - b; 
+	}
+	if (op == '*'){
+	    ans = a * b;
+	}
+	if (op == '/'){
+	    ans = a / b;
+	}
+	return ans;
     }
 
     ////////////////////ONLY EDIT ABOVE THIS LINE////////////////////
