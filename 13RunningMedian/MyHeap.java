@@ -60,7 +60,7 @@ public class MyHeap<T extends Comparable<T>>{
 
   public T remove(){
     if (size == 0){
-      return "";
+      return null;
     }
     T s = peek();
     swap(0, size()-1);
