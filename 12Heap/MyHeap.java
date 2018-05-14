@@ -72,21 +72,31 @@ public class MyHeap<T extends Comparable<T>>{
   public void pushDown(int index){
     int left = index*2+1;
     int right = index*2+2;
-    if (isMax && left < size()&& data[index].compareTo(data[left]) < 0 && (right >= size() || data[right].compareTo(data[left]) <= 0) ||
-        !isMax && left < size()&& data[index].compareTo(data[left]) > 0 && (right >= size() || data[right].compareTo(data[left]) >= 0)
-        ){
-      swap(index, left);
-      pushDown(left);
+    if (left >= size){
+      return ;
+    }
+    if (right >= size){
+      if (isMax && data[index].compareTo(data[left]) < 0 ||
+          !isMax && data[index].compareTo(data[left]) > 0){
+        swap(index, left);
+        pushDown(left);
+      }
     }
 
-    else if (isMax && right < size() && data[index].compareTo(data[right]) < 0 && (left >= size() || data[left].compareTo(data[right]) <= 0) ||
-             !isMax && right < size()&& data[index].compareTo(data[right]) > 0 && (left >= size() || data[right].compareTo(data[left]) >= 0)
-             ){
-      swap(index, right);
-      pushDown(right);
+    else if (isMax && data[index].compareTo(data[left]) < 0 ||
+             !isMax && data[index].compareTo(data[left]) > 0) {
+      if (isMax && data[left].compareTo(data[right]) >= 0 ||
+          !isMax && data[left].compareTo(data[right]) <= 0){
+        swap(index, left);
+        pushDown(left);
+      }
+      else{
+        swap(index,right);
+        pushDown(right);
+      }
     }
-
   }
+
   private void swap(int index1, int index2){
     T temp = data[index1];
     data[index1] = data[index2];
@@ -94,18 +104,12 @@ public class MyHeap<T extends Comparable<T>>{
   }
 
     public static void main(String[]args){
-	MyHeap h = new MyHeap(true);
-	h.add("hello");
-	h.add("");
-	h.add("works or no?");
-	h.add("yummy");
-	System.out.println(h.remove());
-	System.out.println(h);
-	System.out.println(h.remove());
-	System.out.println(h);
-	System.out.println(h.remove());
-	System.out.println(h);
-	System.out.println(h.remove());
-	System.out.println(h);
+      MyHeap h = new MyHeap(true);
+      h.add("hello");
+      h.add("");
+      h.remove();
+      h.add("works or no?");
+      h.add("yummy");
+      System.out.println(h);
     }
 }
