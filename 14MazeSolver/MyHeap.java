@@ -27,7 +27,7 @@ public class MyHeap<T extends Comparable<T>>{
   }
 
   private void resize(){
-    T[] ary = (T[])new Comparable[data.length * 2];
+    T[] ary = (T[])new Comparable[size() * 2];
     for(int x = 0; x < ary.length; x++){
       ary[x] = data[x];
     }
@@ -38,14 +38,9 @@ public class MyHeap<T extends Comparable<T>>{
     if (size == data.length){
       resize();
     }
-    if (size == 0){
-      data[0] = s;
-    }
-    else{
-      data[size] = s;
-      pushUp(size);
-    }
-    size ++;
+    data[size()] = s;
+    pushUp(size());
+    length++;
   }
 
 

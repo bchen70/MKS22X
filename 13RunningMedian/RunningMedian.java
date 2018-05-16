@@ -1,11 +1,11 @@
-public class RunningMedians{
+public class RunningMedian{
 
   private MyHeap<Double> min;
   private MyHeap<Double> max;
   public int size;
 
   @SuppressWarnings("unchecked")
-  public RunningMedians(){
+  public RunningMedian(){
     min = new MyHeap<>();
     max = new MyHeap<>(false);
   }
@@ -45,7 +45,7 @@ public class RunningMedians{
 
   public static void main(String[]args){
 
-    RunningMedians x = new RunningMedians();
+    RunningMedian x = new RunningMedian();
 
     x.add(1);
     x.add(2);

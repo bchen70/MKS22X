@@ -8,6 +8,7 @@ public class Maze{
   private static final String SHOW_CURSOR = "\033[?25h";
   Location start,end;
   private char[][]board;
+  public boolean aStar;
 
   public Location[] getNeighbors(Location L){
 
@@ -15,24 +16,28 @@ public class Maze{
     int x = L.getX();
     int y = L.getY();
     int size = 0;
-    if (isValid(x-1,y)){
-      neighbors[size] = new Location(x-1,y,L);
+    int newDistance = 0;
+    if (aStar){
+      newDistance = L.getSoFar()+1;
+    }
+     if (isValid(x-1,y)){
+      neighbors[size] = new Location(x-1,y,L,Math.abs(x-1-end.getX())+Math.abs(y-end.getY()),newDistance);
       size++;
     }
     if (isValid(x+1,y)){
-      neighbors[size] = new Location(x+1,y,L);
+      neighbors[size] = new Location(x+1,y,L,Math.abs(x+1-end.getX())+Math.abs(y-end.getY()),newDistance);
       size++;
     }
     if (isValid(x,y-1)){
-      neighbors[size] = new Location(x,y-1,L);
+      neighbors[size] = new Location(x,y-1,L,Math.abs(x-end.getX())+Math.abs(y-1-end.getY()),newDistance);
       size++;
     }
     if (isValid(x,y+1)){
-      neighbors[size] = new Location(x,y+1,L);
+      neighbors[size] = new Location(x,y+1,L,Math.abs(x-end.getX())+Math.abs(y+1-end.getY()),newDistance);
       size++;
     }
     return neighbors;
-  }
+}
 
   private boolean isValid (int x, int y){
     return x>=0 && x<board.length && y>=0 && y<board[0].length &&
@@ -104,8 +109,9 @@ public class Maze{
       }
     }
 
-    start = new Location(startX, startY, null);
-    end = new Location(endX, endY, null);
+    start = new Location(startX, startY, null,0 ,0);
+    end = new Location(endX, endY, null ,0 ,0);
+    aStar = false;
     if (SCount != 1 || ECount != 1){
       throw new IllegalArgumentException();
     }
@@ -176,5 +182,8 @@ public class Maze{
       ans += line+color(37,40)+"\n";
     }
     return ans;
+}
+  public void setAStar(boolean value){
+    aStar = value;
 }
 }
