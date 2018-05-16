@@ -4,66 +4,99 @@ import java.io.*;
 public class MazeSolver{
 
     public static void main(String[]args){
-	try {
-	    MazeSolver m = new MazeSolver("test1.txt");
-	    System.out.println(m);
-	    m.solve();
-	    System.out.println(m);
-	}
-	catch (FileNotFoundException e){
+      try {
+        MazeSolver m = new MazeSolver("test1.txt");
+        System.out.println(m);
+        m.setAnimate(true);
+        m.solve();
+        System.out.println(m);
+      }
+      catch (FileNotFoundException e){
 
-	}
+      }
 
     }
 
-    private Maze maze;
-    private Frontier frontier;
+  private Maze maze;
+  private Frontier frontier;
+  private boolean willAnimate;
 
-    public MazeSolver(String fileName) throws FileNotFoundException{
-	maze = new Maze(fileName);
+  private void wait(int millis){
+    try {
+      Thread.sleep(millis);
     }
-
-    public boolean solve(){
-	return solve(0);
+    catch (InterruptedException e) {
     }
+  }
 
-    public boolean solve(int mode){
-	if (mode == 1){
+
+  public MazeSolver(String fileName) throws FileNotFoundException{
+    maze = new Maze(fileName);
+    willAnimate = false;
+  }
+
+  public void setAnimate(boolean val){
+    willAnimate = val;
+  }
+
+  public boolean solve(){
+    return solve(2);
+  }
+
+  public boolean solve(int mode){
+    if (mode == 1){
 	    frontier = new FrontierStack();
-	}
-	else if (mode == 0) {
+    }
+    else if (mode == 0) {
 	    frontier = new FrontierQueue();
-	}
-	frontier.add(maze.getStart());
-	Location end = maze.getEnd();
+    }
+    else if (mode == 2){
+      frontier = new FrontierPriorityQueue();
+    }
+    else if (mode == 3){
+      frontier = new FrontierPriorityQueue();
+      maze.setAStar(true);
+    }
+    frontier.add(maze.getStart());
+    Location end = maze.getEnd();
 
-	while (frontier.hasNext()){
+    while (frontier.hasNext()){
+      if (willAnimate){
+        System.out.println("\033[2J\033[1;1H");
+        System.out.println(this);
+        wait(30);
+      }
 	    Location next = frontier.next();
 	    maze.set(next.getX(),next.getY(),'.');
 	    Location[] newLocations = maze.getNeighbors(next);
 	    for (int i=0; i<newLocations.length; i++){
-		Location cur = newLocations[i];
-		if (cur != null){
-		    if (cur.equals(end)){
-			maze.end = new Location(maze.end.getX(),maze.end.getY(),cur.getPrev());
-			maze.set(maze.getEnd().getX(),maze.getEnd().getY(),'E');
-			return true;
-		    }
-		    frontier.add(cur);
-		    maze.set(cur.getX(),cur.getY(),'?');
-		}
+        Location cur = newLocations[i];
+        if (cur != null){
+          if (cur.equals(end)){
+            maze.end = new Location(maze.end.getX(),maze.end.getY(),cur.getPrev(),0,0);
+            maze.set(maze.getEnd().getX(),maze.getEnd().getY(),'E');
+            return true;
+          }
+          frontier.add(cur);
+          maze.set(cur.getX(),cur.getY(),'?');
+        }
 	    }
-	}
-	return false;
     }
+    return false;
+  }
 
-    public String toString(){
-	Location cur = maze.getEnd().getPrev();
-	while (cur!=null){
+  public String toString(){
+    Location cur = maze.getEnd().getPrev();
+    while (cur!=null){
 	    maze.set(cur.getX(),cur.getY(),'@');
 	    cur = cur.getPrev();
-	}
-	maze.set(maze.start.getX(),maze.start.getY(),'S');
-	return maze.colorize(maze.toString());
+      if (willAnimate){
+        System.out.println("\033[2J\033[1;1H");
+        System.out.println(maze.colorize(maze.toString()));
+        wait(30);
+      }
     }
+    maze.set(maze.start.getX(),maze.start.getY(),'S');
+    return maze.colorize(maze.toString());
+  }
 }
