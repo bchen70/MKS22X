@@ -40,7 +40,7 @@ public class MazeSolver{
   }
 
   public boolean solve(){
-    return solve(2);
+    return solve(1);
   }
 
   public boolean solve(int mode){
@@ -67,18 +67,24 @@ public class MazeSolver{
         wait(30);
       }
 	    Location next = frontier.next();
-	    maze.set(next.getX(),next.getY(),'.');
-	    Location[] newLocations = maze.getNeighbors(next);
-	    for (int i=0; i<newLocations.length; i++){
-        Location cur = newLocations[i];
-        if (cur != null){
-          if (cur.equals(end)){
-            maze.end = new Location(maze.end.getX(),maze.end.getY(),cur.getPrev(),0,0);
-            maze.set(maze.getEnd().getX(),maze.getEnd().getY(),'E');
+      if(!next.equals(maze.getStart())){
+        maze.set(next.getX(), next.getY(), '.');
+      }
+      Location[] newLocations = maze.getNeighbors(next);
+
+      for (Location L: newLocations){
+        if (L != null){
+          if (L.equals(end)){
+
+            while (!next.equals(maze.getStart())){
+              maze.set(next.getX(), next.getY(), '@');
+              next = next.getPrev();
+
+            }
             return true;
           }
-          frontier.add(cur);
-          maze.set(cur.getX(),cur.getY(),'?');
+          frontier.add(L);
+          maze.set(L.getX(), L.getY(), '?');
         }
 	    }
     }
