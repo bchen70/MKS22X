@@ -8,6 +8,7 @@ public class MyHeap<T extends Comparable<T>>{
   public MyHeap(){
     this(true);
   }
+  @SuppressWarnings("unchecked")
   public MyHeap(boolean x){
     if (x){
       isMax = true;
@@ -18,6 +19,7 @@ public class MyHeap<T extends Comparable<T>>{
     data = (T[])new Comparable[10];
     size = 0;
   }
+
   public int size(){
     return size;
   }
@@ -34,13 +36,14 @@ public class MyHeap<T extends Comparable<T>>{
     data = ary;
   }
 
+   @SuppressWarnings("unchecked")
   public void add(T s){
     if (size == data.length){
       resize();
     }
-    data[size()] = s;
-    pushUp(size());
-    size++;
+    data[size] = s;
+    pushUp(size);
+    size ++;
   }
 
 
@@ -54,14 +57,10 @@ public class MyHeap<T extends Comparable<T>>{
   }
 
   public T remove(){
-    if (size == 0){
-      return null;
-    }
-    T s = peek();
     swap(0, size()-1);
     size--;
     pushDown(0);
-    return s;
+    return data[size];
   }
 
   public void pushDown(int index){
@@ -98,13 +97,27 @@ public class MyHeap<T extends Comparable<T>>{
     data[index2] = temp;
   }
 
-    public static void main(String[]args){
-      MyHeap h = new MyHeap(true);
-      h.add("hello");
-      h.add("");
-      h.remove();
-      h.add("works or no?");
-      h.add("yummy");
-      System.out.println(h);
-    }
+  public String toString(){
+  String str = "";
+  for (int i = 0; i < size(); i++){
+      str += data[i] + "  ";
+  }
+  return str;
+}
+  @SuppressWarnings("unchecked")
+    public static void main(String[] args){
+        MyHeap<Integer>  x = new MyHeap<>();
+  for(int i = 0; i < 10; i++){
+      int temp = (int)(Math.random() * 10);
+      x.add( temp);
+      System.out.println(x);
+      //System.out.println("------------------------------------");
+  }
+  for(int i = x.size(); i>0; i--){
+      x.remove();
+      System.out.println(x);
+
+      //System.out.println("done");
+  }
+  }
 }
