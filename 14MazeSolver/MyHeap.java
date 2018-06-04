@@ -40,7 +40,7 @@ public class MyHeap<T extends Comparable<T>>{
     }
     data[size()] = s;
     pushUp(size());
-    length++;
+    size++;
   }
 
 
