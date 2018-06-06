@@ -98,11 +98,11 @@ public class MazeSolver{
 	    cur = cur.getPrev();
       if (willAnimate){
         System.out.println("\033[2J\033[1;1H");
-        System.out.println(maze.colorize(maze.toString()));
+        System.out.println(maze.toString());
         wait(30);
       }
     }
     maze.set(maze.start.getX(),maze.start.getY(),'S');
-    return maze.colorize(maze.toString());
+    return maze.toString();
   }
 }
